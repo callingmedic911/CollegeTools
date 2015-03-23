@@ -87,5 +87,3 @@ public class BunkCalculator extends ActionBarActivity {
         }
     }
 }
-
-//Jayant's in
