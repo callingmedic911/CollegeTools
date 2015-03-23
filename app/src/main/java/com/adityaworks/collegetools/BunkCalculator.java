@@ -46,6 +46,8 @@ public class BunkCalculator extends ActionBarActivity {
             case 1:
                 fragmentManager.replace(R.id.content_frame, new BunkCalculatorFragment());
                 break;
+            case 2:
+                fragmentManager.replace(R.id.content_frame, new TimeTableFragment());
         }
 
         fragmentManager.commit();
