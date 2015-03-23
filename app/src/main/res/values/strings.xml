@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">CollegeTools</string>
+  <string name="hello_world">Hello world!</string>
+  <string name="action_settings">Settings</string>
+  <string name="conducted_hint">No. of class conducted</string>
+  <string name="attended_hint">No. of class attended</string>
+  <string name="required">Target:</string>
+  <string name="submit">Submit</string>
+  <string name="impossible">WTF!? Are you serious?</string>
+  <string name="impossible_100" formatted="false">Now, it\'s not possible to attain 100%, since you\'ve missed one or more classes.</string>
+  <string name="impossible_0" formatted="false">Now, it\'s not possible to attain 0%, since you\'ve attended one or more classes.</string>
+  <string name="good_100" formatted="false">You\'re good on your attendance. Current attendance is 100%. Make sure you don\'t miss any class otherwise you\'ll not able to get 100%.</string>
+  <string name="perfecto">Awesome! So far you\'ve not attended any class. Keep it up!</string>
+  <string name="running_low">"You\'re running low on attendance. Current attendance is "</string>
+  <string name="running_good">"You\'re good on your attendance. Current attendance is "</string>
+  <string name="attend_next" formatted="false">"%. You need to attend next "</string>
+  <string name="bunk_next" formatted="false">"%. You can bunk next "</string>
+  <string name="thatll">" That will be "</string>
+  <string-array name="navigation_drawer_items">
+    <item>Home</item>
+    <item>Bunk Calculator</item>
+    <item>Timetable</item>
+    <item>Syllabus</item>
+  </string-array>
+
+</resources>

@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".BunkCalculator$PlaceholderFragment">
+
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"/>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/toolbar"
+      android:layout_marginTop="20dp"
+      android:paddingLeft="@dimen/activity_horizontal_margin"
+      android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <EditText android:id="@+id/conducted"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="20dp"
+              android:hint="@string/conducted_hint"
+              android:layout_marginTop="20dp"
+              android:inputType="number" />
+
+    <EditText android:id="@+id/attended"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="20dp"
+              android:hint="@string/attended_hint"
+              android:layout_below="@+id/conducted"
+              android:layout_marginTop="20dp"
+              android:inputType="number" />
+
+    <TextView android:id="@+id/text_required"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="#000"
+              android:textSize="20dp"
+              android:text="@string/required"
+              android:layout_below="@id/attended"
+              android:layout_marginTop="20dp"
+              android:layout_marginRight="5dp"/>
+
+    <TextView android:id="@+id/percent_out"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="20dp"
+              android:textColor="#000"
+              android:layout_toRightOf="@+id/text_required"
+              android:text="75%"
+              android:layout_below="@id/attended"
+              android:layout_marginTop="20dp" />
+
+    <SeekBar android:id="@+id/required"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:max="20"
+             android:progress="15"
+             android:layout_below="@id/text_required" />
+
+    <Button android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/required"
+            android:text="@string/submit" />
+
+    <TextView android:id="@+id/answer"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:layout_below="@id/submit" />
+
+  </RelativeLayout>
+
+</RelativeLayout>
