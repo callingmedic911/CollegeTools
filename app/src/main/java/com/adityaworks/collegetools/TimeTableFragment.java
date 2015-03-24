@@ -30,8 +30,8 @@ public class TimeTableFragment extends Fragment {
         View rootView;
 
         activity = (ActionBarActivity) getActivity();
-        rootView = inflater.inflate(R.layout.fragment_bunk_calculator, container, false);
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        rootView = inflater.inflate(R.layout.fragment_timetable, container, false);
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_timetable);
         drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
 
         //Traditional Stuff part 2

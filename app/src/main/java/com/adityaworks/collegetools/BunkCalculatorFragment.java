@@ -65,7 +65,7 @@ public class BunkCalculatorFragment extends Fragment {
         submit = (Button)rootView.findViewById(R.id.submit);
         answer = (TextView)rootView.findViewById(R.id.answer);
         keyboard = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_bunk_calculator);
         drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
 
         //Traditional Stuff part 2

@@ -5,13 +5,13 @@
                 tools:context=".BunkCalculator$PlaceholderFragment">
 
   <include
-      android:id="@+id/toolbar"
-      layout="@layout/toolbar"/>
+      android:id="@+id/toolbar_bunk_calculator"
+      layout="@layout/toolbar_bunk_calculator"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"
+      android:layout_below="@id/toolbar_bunk_calculator"
       android:layout_marginTop="20dp"
       android:paddingLeft="@dimen/activity_horizontal_margin"
       android:paddingRight="@dimen/activity_horizontal_margin">
