@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,14 +27,21 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId());
 
+        setUpToolbar();
+        setupNavDrawer();
+
+    }
+
+    protected abstract int getLayoutResourceId();
+
+    private void setUpToolbar() {
+
         ActionBarDrawerToggle actionBarDrawerToggle;
 
         mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         mNavigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mListView = (ListView) findViewById(R.id.left_drawer);
 
-        //Traditional Stuff part 2
         setSupportActionBar(mActionBarToolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mActionBarToolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
@@ -43,12 +49,14 @@ public abstract class BaseActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         actionBarDrawerToggle.syncState();
 
-        // set up the drawer's list view with items and click listener
+    }
+
+    private void setupNavDrawer() {
+        mListView = (ListView) findViewById(R.id.left_drawer);
+
         mListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mNavigationDrawerItems));
         mListView.setOnItemClickListener(new DrawerItemClickListener());
     }
-
-    protected abstract int getLayoutResourceId();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
