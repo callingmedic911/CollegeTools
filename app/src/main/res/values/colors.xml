@@ -4,5 +4,8 @@
   <color name="primary_color">#2196F3</color>
   <color name="primary_dark_color">#0D47A1</color>
   <color name="accent">#9C27B0</color>
+  <color name="primary_timetable">#673AB7</color>
+  <color name="primary_dark_timetable">#311B92</color>
+  <color name="accent_timetable">#F44336</color>
 
 </resources>

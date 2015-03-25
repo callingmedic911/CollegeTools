@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Timetable"
+            android:label="@string/timetable"
+            android:theme="@style/AppTheme.Timetable" >
+        </activity>
     </application>
 
 </manifest>

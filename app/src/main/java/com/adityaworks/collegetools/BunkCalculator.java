@@ -1,89 +1,194 @@
 package com.adityaworks.collegetools;
 
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.*;
+
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
-public class BunkCalculator extends ActionBarActivity {
+public class BunkCalculator extends BaseActivity {
 
-    private DrawerLayout drawerLayout;
-    private ListView listView;
-
-    private String[] navigationDrawerItems;
+    private static int[] percent = { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
+    private EditText mConductedIn, mAttendedIn;
+    private TextView mPercentOut;
+    private SeekBar mSeekbar;
+    private Button mSubmit;
+    private TextView mAnswer;
+    private double mConducted, mInitConduct , mAttended, mInitAttend, mCurrent, mInitCurrent, mRequired, mClassNo, mNoOfClass;
+    private String mDays, mClasses;
+    private InputMethodManager mKeyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bunk_calculator);
 
-        navigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        listView = (ListView) findViewById(R.id.left_drawer);
+        // Initialization
+        mConductedIn = (EditText) findViewById(R.id.conducted);
+        mAttendedIn = (EditText) findViewById(R.id.attended);
+        mPercentOut = (TextView) findViewById(R.id.percent_out);
+        mSeekbar = (SeekBar) findViewById(R.id.required);
+        mSubmit = (Button) findViewById(R.id.submit);
+        mAnswer = (TextView) findViewById(R.id.answer);
+        mKeyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        // set up the drawer's list view with items and click listener
-        listView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, navigationDrawerItems));
-        listView.setOnItemClickListener(new DrawerItemClickListener());
+        initProcess();
 
-        if (savedInstanceState == null) {
-            selectItem(1);
-        }
     }
 
-    private void selectItem(int position) {
-        // update the main content by replacing fragments
-        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+    // Returns percentage
+    private double calcPercentage(double conducted, double attended ) {
+        return (attended/conducted)*100;
+    }
 
-        switch(position) {
-            default:
-            case 1:
-                fragmentManager.replace(R.id.content_frame, new BunkCalculatorFragment());
-                break;
-            case 2:
-                fragmentManager.replace(R.id.content_frame, new TimeTableFragment());
+    // Returns no, of class need to attend or bunk
+    private double noClass() {
+
+        if ( mRequired >= mCurrent ) {
+            while ( mCurrent <= mRequired ) {
+                mConducted++;
+                mAttended++;
+                mCurrent = calcPercentage(mConducted, mAttended);
+
+            }
+            mClassNo = (int) Math.ceil(Math.abs(mAttended - mInitAttend));
+        } else {
+            while ( mCurrent >= (mRequired + 0.20) ) { // Added 0.20 as error from some answer.
+                mConducted++;
+                mCurrent = calcPercentage(mConducted, mAttended);
+            }
+            mClassNo = Math.ceil(Math.abs(mConducted - mInitConduct));
         }
 
-        fragmentManager.commit();
+        return (mClassNo);
+    }
 
-        // update selected item and title, then close the drawer
-        listView.setItemChecked(position, true);
-        drawerLayout.closeDrawer(listView);
+    //Processing Part
+    private void processOutput() {
+
+        mKeyboard.hideSoftInputFromWindow(mConductedIn.getWindowToken(), 0);
+        mKeyboard.hideSoftInputFromWindow(mAttendedIn.getWindowToken(), 0);
+
+        mRequired = percent[mSeekbar.getProgress()];
+        try {
+            mConducted = Double.parseDouble(mConductedIn.getText().toString());
+        } catch (NumberFormatException e) {
+            mConducted = 0;
+        }
+        try {
+            mAttended = Double.parseDouble(mAttendedIn.getText().toString());
+        } catch (NumberFormatException e) {
+            mAttended = 0;
+        }
+        mCurrent = calcPercentage(mConducted, mAttended);
+
+        mInitConduct = mConducted;
+        mInitAttend = mAttended;
+        mInitCurrent = mCurrent;
+
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        if (mConducted == 0) {
+            mAnswer.setText(getString(R.string.impossible));
+        } else if (mRequired == 100 && !(mConducted == mAttended)) {
+            mAnswer.setText(getString(R.string.impossible_100));
+        } else if (mRequired == 100 && (mConducted == mAttended)) {
+            mAnswer.setText(getString(R.string.good_100));
+        } else if (mRequired == 0 && mAttended > 0) {
+            mAnswer.setText(getString(R.string.impossible_0));
+        } else if (mRequired == 0 && mAttended == 0) {
+            mAnswer.setText(getString(R.string.perfecto));
+        } else {
+
+            mNoOfClass = noClass();
+            mClasses = (int) mNoOfClass > 1 ? " classes." : " class.";
+            mDays = (int) Math.ceil(mNoOfClass / 8) > 1 ? " days." : " day.";
+
+            if (mRequired > mInitCurrent) {
+                mAnswer.setText(getString(R.string.running_low) + df.format(mInitCurrent)
+                        + getString(R.string.attend_next)
+                        + Integer.toString((int) mNoOfClass)
+                        + mClasses + getString(R.string.thatll)
+                        + Integer.toString((int) Math.ceil(mNoOfClass / 8)) + mDays);
+            } else {
+                mAnswer.setText(getString(R.string.running_good)
+                        + df.format(mInitCurrent) + getString(R.string.bunk_next)
+                        + Integer.toString((int) mNoOfClass)
+                        + mClasses + getString(R.string.thatll)
+                        + Integer.toString((int) Math.ceil(mNoOfClass / 8)) + mDays);
+            }
+        }
+
+    }
+
+    //Initialize the process of this bunk calculation activity.
+    private void initProcess() {
+
+        //Check if app is running in test period.
+        String date_s = "02-04-2015";
+        Date date = null;
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = format.parse(date_s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if ( new Date().after(date) ) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("Testing period over!");
+            dialog.setMessage("The testing period of application is now over. Contact Aditya for more details.");
+            dialog.setCancelable(false);
+            dialog.setNegativeButton("Okay!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            dialog.show();
+        }
+
+        //Output SeekBar value to TextView
+        mSeekbar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        mPercentOut.setText(Integer.toString(percent[progress]) + "%");
+                        processOutput();
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                }
+        );
+
+        mSubmit.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        processOutput();
+                    }
+                }
+        );
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bunk_calculator, menu);
-        return true;
+    protected int getLayoutResourceId() {
+        return R.layout.activity_bunk_calculator;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /* The click listener for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
 }
