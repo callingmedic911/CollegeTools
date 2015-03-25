@@ -27,6 +27,15 @@
         <item>Syllabus</item>
     </string-array>
 
+    <string-array name="gridview_drawer_items">
+      <item>Mon</item>
+      <item>Tue</item>
+      <item>Wed</item>
+      <item>Thu</item>
+      <item>Fri</item>
+      <item>Sat</item>
+    </string-array>
+
     <string name="title_activity_base">BaseActivity</string>
 
 </resources>

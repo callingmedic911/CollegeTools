@@ -39,7 +39,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         ActionBarDrawerToggle actionBarDrawerToggle;
 
         mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mNavigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         setSupportActionBar(mActionBarToolbar);
@@ -52,6 +51,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     private void setupNavDrawer() {
+        mNavigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         mListView = (ListView) findViewById(R.id.left_drawer);
 
         mListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mNavigationDrawerItems));
