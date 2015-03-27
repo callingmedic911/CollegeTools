@@ -3,7 +3,6 @@ package com.adityaworks.collegetools;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 public class Timetable extends BaseActivity {
@@ -16,8 +15,9 @@ public class Timetable extends BaseActivity {
         String[] gridViewItems = getResources().getStringArray(R.array.gridview_drawer_items);
         GridView gridView = (GridView) findViewById(R.id.gridview);
 
+
         gridView.setAdapter(
-                new ArrayAdapter<String>(
+                new CustomArrayAdapter(
                         this, R.layout.gridview_list_item,
                         R.id.gridview_text,
                         gridViewItems

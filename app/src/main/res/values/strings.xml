@@ -19,6 +19,7 @@
     <string name="attend_next" formatted="false">"%. You need to attend next "</string>
     <string name="bunk_next" formatted="false">"%. You can bunk next "</string>
     <string name="thatll">" That will be "</string>
+    <string name="today">Today</string>
 
     <string-array name="navigation_drawer_items">
         <item>Home</item>

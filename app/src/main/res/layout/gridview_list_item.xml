@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:id="@+id/gridview_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:minWidth="150dp"
     android:minHeight="100dp"
     android:elevation="2dp"
-    android:background="@drawable/round_corner"
-    android:gravity="center">
+    android:background="@drawable/round_corner" >
   <TextView
       android:id="@+id/gridview_text"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center"
-      android:textSize="32dp"
-      android:padding="5dp" />
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:textSize="32dp" />
+  <TextView
+      android:id="@+id/today"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:paddingBottom="15dp"
+      android:textSize="10dp"
+      android:textColor="#ddd" />
 </RelativeLayout>
