@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -23,8 +26,12 @@ public class BunkCalculator extends BaseActivity {
     private SeekBar mSeekbar;
     private Button mSubmit;
     private TextView mAnswer;
-    private double mConducted, mInitConduct , mAttended, mInitAttend, mCurrent, mInitCurrent, mRequired, mClassNo, mNoOfClass;
-    private String mDays, mClasses;
+    private double mConducted;
+    private double mInitConduct;
+    private double mAttended;
+    private double mInitAttend;
+    private double mCurrent;
+    private double mRequired;
     private InputMethodManager mKeyboard;
 
     @Override
@@ -52,6 +59,7 @@ public class BunkCalculator extends BaseActivity {
     // Returns no, of class need to attend or bunk
     private double noClass() {
 
+        double classNo;
         if ( mRequired >= mCurrent ) {
             while ( mCurrent <= mRequired ) {
                 mConducted++;
@@ -59,16 +67,16 @@ public class BunkCalculator extends BaseActivity {
                 mCurrent = calcPercentage(mConducted, mAttended);
 
             }
-            mClassNo = (int) Math.ceil(Math.abs(mAttended - mInitAttend));
+            classNo = (int) Math.ceil(Math.abs(mAttended - mInitAttend));
         } else {
             while ( mCurrent >= (mRequired + 0.20) ) { // Added 0.20 as error from some answer.
                 mConducted++;
                 mCurrent = calcPercentage(mConducted, mAttended);
             }
-            mClassNo = Math.ceil(Math.abs(mConducted - mInitConduct));
+            classNo = Math.ceil(Math.abs(mConducted - mInitConduct));
         }
 
-        return (mClassNo);
+        return (classNo);
     }
 
     //Processing Part
@@ -92,7 +100,7 @@ public class BunkCalculator extends BaseActivity {
 
         mInitConduct = mConducted;
         mInitAttend = mAttended;
-        mInitCurrent = mCurrent;
+        double initCurrent = mCurrent;
 
         DecimalFormat df = new DecimalFormat("0.00");
 
@@ -108,22 +116,22 @@ public class BunkCalculator extends BaseActivity {
             mAnswer.setText(getString(R.string.perfecto));
         } else {
 
-            mNoOfClass = noClass();
-            mClasses = (int) mNoOfClass > 1 ? " classes." : " class.";
-            mDays = (int) Math.ceil(mNoOfClass / 8) > 1 ? " days." : " day.";
+            double noOfClass = noClass();
+            String classes = (int) noOfClass > 1 ? " classes." : " class.";
+            String days = (int) Math.ceil(noOfClass / 8) > 1 ? " days." : " day.";
 
-            if (mRequired > mInitCurrent) {
-                mAnswer.setText(getString(R.string.running_low) + df.format(mInitCurrent)
+            if (mRequired > initCurrent) {
+                mAnswer.setText(getString(R.string.running_low) + df.format(initCurrent)
                         + getString(R.string.attend_next)
-                        + Integer.toString((int) mNoOfClass)
-                        + mClasses + getString(R.string.thatll)
-                        + Integer.toString((int) Math.ceil(mNoOfClass / 8)) + mDays);
+                        + Integer.toString((int) noOfClass)
+                        + classes + getString(R.string.thatll)
+                        + Integer.toString((int) Math.ceil(noOfClass / 8)) + days);
             } else {
                 mAnswer.setText(getString(R.string.running_good)
-                        + df.format(mInitCurrent) + getString(R.string.bunk_next)
-                        + Integer.toString((int) mNoOfClass)
-                        + mClasses + getString(R.string.thatll)
-                        + Integer.toString((int) Math.ceil(mNoOfClass / 8)) + mDays);
+                        + df.format(initCurrent) + getString(R.string.bunk_next)
+                        + Integer.toString((int) noOfClass)
+                        + classes + getString(R.string.thatll)
+                        + Integer.toString((int) Math.ceil(noOfClass / 8)) + days);
             }
         }
 
@@ -133,7 +141,7 @@ public class BunkCalculator extends BaseActivity {
     private void initProcess() {
 
         //Check if app is running in test period.
-        String date_s = "29-03-2015";
+        String date_s = "02-04-2015";
         Date date = null;
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         try {
@@ -190,5 +198,4 @@ public class BunkCalculator extends BaseActivity {
     protected int getLayoutResourceId() {
         return R.layout.activity_bunk_calculator;
     }
-
 }

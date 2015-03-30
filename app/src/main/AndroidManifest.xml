@@ -21,6 +21,10 @@
             android:label="@string/timetable"
             android:theme="@style/AppTheme.Timetable" >
         </activity>
+        <activity
+            android:name=".TimetableList"
+            android:label="@string/title_activity_timetable_list" >
+        </activity>
     </application>
 
 </manifest>
