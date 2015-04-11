@@ -40,7 +40,7 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
         //Populate data with custom background
         dayName.setText(string);
         if( (day != 1) && (position == day-2) ) {
-            layout.setBackgroundResource(R.drawable.round_corner_color);
+            layout.setBackgroundResource(R.color.primary_timetable);
             dayName.setTextColor(Color.WHITE);
             today.setText(R.string.today);
         }
