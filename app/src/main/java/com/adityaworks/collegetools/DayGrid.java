@@ -1,11 +1,12 @@
 package com.adityaworks.collegetools;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-public class Timetable extends BaseActivity {
+public class DayGrid extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,9 +18,8 @@ public class Timetable extends BaseActivity {
 
 
         gridView.setAdapter(
-                new CustomArrayAdapter(
+                new DayAdapter(
                         this, R.layout.gridview_list_item,
-                        R.id.gridview_text,
                         gridViewItems
                 ));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -31,6 +31,8 @@ public class Timetable extends BaseActivity {
     }
 
     private void openActivity(int position) {
+        Intent intent = new Intent(this, TimetableList.class);
+        startActivity(intent);
     }
 
     @Override

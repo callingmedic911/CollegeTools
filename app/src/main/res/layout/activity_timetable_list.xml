@@ -7,8 +7,8 @@
               tools:ignore="MergeRootFrame">
 
   <android.support.v4.widget.DrawerLayout
-      android:id="@+id/drawer_layout"
       xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/drawer_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
@@ -22,9 +22,12 @@
           layout="@layout/toolbar_timetable_list"/>
 
       <ListView
+          android:id="@+id/timetable_list"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_below="@+id/toolbar"
+          android:divider="@null"
+          android:drawSelectorOnTop="true"
           android:layout_marginLeft="@dimen/activity_horizontal_margin"
           android:layout_marginRight="@dimen/activity_horizontal_margin"
           android:layout_marginTop="20dp" />

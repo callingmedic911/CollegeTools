@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Timetable"
+            android:name=".DayGrid"
             android:label="@string/timetable"
             android:theme="@style/AppTheme.Timetable" >
         </activity>

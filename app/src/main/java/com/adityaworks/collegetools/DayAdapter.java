@@ -14,9 +14,9 @@ import java.util.Calendar;
 /**
  * Created by callingmedic911 on 27/3/15.
  */
-public class CustomArrayAdapter extends ArrayAdapter<String> {
-    public CustomArrayAdapter(Context context, int resource, int textViewResourceId, String[] strings) {
-        super(context, resource, textViewResourceId, strings);
+public class DayAdapter extends ArrayAdapter<String> {
+    public DayAdapter(Context context, int resource, String[] strings) {
+        super(context, resource, strings);
     }
 
     @Override

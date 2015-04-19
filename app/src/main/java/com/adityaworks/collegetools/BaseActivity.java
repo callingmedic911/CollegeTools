@@ -1,10 +1,10 @@
 package com.adityaworks.collegetools;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,10 +17,10 @@ import android.widget.ListView;
 
 public abstract class BaseActivity extends ActionBarActivity {
 
+    protected Toolbar mActionBarToolbar;
     private DrawerLayout mDrawerLayout;
     private ListView mListView;
     private String[] mNavigationDrawerItems;
-    protected Toolbar mActionBarToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,14 +80,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /* The click listener for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
     private void selectItem(int position) {
         Intent intent;
         mDrawerLayout.closeDrawer(mListView);
@@ -99,7 +91,7 @@ public abstract class BaseActivity extends ActionBarActivity {
                 startActivityWithDelay(intent);
                 break;
             case 2:
-                intent = new Intent(this, Timetable.class);
+                intent = new Intent(this, DayGrid.class);
                 startActivityWithDelay(intent);
                 break;
         }
@@ -118,5 +110,13 @@ public abstract class BaseActivity extends ActionBarActivity {
                 finish();
             }
         }, 200);
+    }
+
+    /* The click listener for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
     }
 }
