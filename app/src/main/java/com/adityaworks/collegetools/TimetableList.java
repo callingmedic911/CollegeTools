@@ -90,6 +90,10 @@ public class TimetableList extends BaseActivity {
             String startTime = lectureDetails.getString(START_TIME);
             String endTime = lectureDetails.getString(END_TIME);
 
+            // Add item for lunch
+            if (i==4)
+                resultList.add(new Lecture("Lunch", "", "", "12:30 pm", "01:40 pm"));
+
             resultList.add(new Lecture(name, acro, faculty, startTime, endTime));
         }
         return resultList;

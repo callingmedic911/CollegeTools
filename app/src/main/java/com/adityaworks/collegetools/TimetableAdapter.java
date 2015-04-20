@@ -25,19 +25,30 @@ public class TimetableAdapter extends ArrayAdapter<Lecture> {
         Lecture lecture = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.timetable_list, parent, false);
+            //Specific layout for lunch
+            if (position == 4){
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.timetable_lunch, parent, false);
+            }
+            //Global list item layout
+            else {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.timetable_list, parent, false);
+            }
         }
 
         TextView name = (TextView) convertView.findViewById(R.id.subject_name);
-        TextView acro = (TextView) convertView.findViewById(R.id.acro);
-        TextView faculty = (TextView) convertView.findViewById(R.id.faculty_name);
         TextView duration = (TextView) convertView.findViewById(R.id.duration);
 
-        // Populate the data into the template view using the data object
         name.setText(lecture.name);
-        acro.setText(lecture.acro);
-        faculty.setText("By " + lecture.faculty);
         duration.setText(lecture.startTime + " - " + lecture.endTime);
+
+        //Global setText for list item except lunch
+        if (position != 4) {
+            TextView acro = (TextView) convertView.findViewById(R.id.acro);
+            TextView faculty = (TextView) convertView.findViewById(R.id.faculty_name);
+
+            acro.setText(lecture.acro);
+            faculty.setText("By " + lecture.faculty);
+        }
 
         // Return the completed view to render on screen
         return convertView;
