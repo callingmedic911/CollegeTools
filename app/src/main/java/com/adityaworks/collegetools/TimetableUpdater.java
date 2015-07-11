@@ -67,7 +67,7 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null) {
                 // Nothing to do.
                 return null;
@@ -105,18 +105,14 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
 
-        int cloudVersion = 0;
+        int cloudVersion;
         int localVersion = 0;
         final String fileName = "timetable.version";
 
         cloudVersion = Integer.parseInt(urlToString(getURL(fileName)));
 
         //If everything goes good, then we'll check current version with cloud's
-        if ( cloudVersion > localVersion ) {
-            return true;
-        }
-
-        return false;
+        return cloudVersion > localVersion;
 
     }
 
