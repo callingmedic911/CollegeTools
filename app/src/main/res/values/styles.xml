@@ -4,7 +4,7 @@
 
   <style name="AppTheme" parent="AppTheme.Base"/>
 
-  <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+  <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/primary_color</item>
     <item name="colorPrimaryDark">@color/primary_dark_color</item>
     <item name="colorAccent">@color/accent</item>
@@ -14,7 +14,7 @@
 
   <style name="AppTheme.Timetable" parent="AppTheme.Timetable.Base"/>
 
-  <style name="AppTheme.Timetable.Base" parent="Theme.AppCompat.Light">
+  <style name="AppTheme.Timetable.Base" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/primary_timetable</item>
     <item name="colorPrimaryDark">@color/primary_dark_timetable</item>
     <item name="colorAccent">@color/accent_timetable</item>
