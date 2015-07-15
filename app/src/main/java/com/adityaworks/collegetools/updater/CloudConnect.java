@@ -105,7 +105,7 @@ public class CloudConnect {
             newTimetableJSON = urlToString(getURL(timetable));
 
         } finally {
-            if ( (cloudVersion != null) && (newTimetableJSON != null)) {
+            if ((cloudVersion != null) && (newTimetableJSON != null)) {
                 editor.putString("timetableStr", newTimetableJSON);
                 editor.putInt("localVersion", Integer.parseInt(cloudVersion));
             }

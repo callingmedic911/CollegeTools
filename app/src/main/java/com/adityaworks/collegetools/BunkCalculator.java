@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class BunkCalculator extends BaseActivity {
 
-    private static int[] percent = { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
+    private static int[] percent = {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100};
     private EditText mConductedIn, mAttendedIn;
     private TextView mPercentOut;
     private SeekBar mSeekbar;
@@ -52,16 +52,16 @@ public class BunkCalculator extends BaseActivity {
     }
 
     // Returns percentage
-    private double calcPercentage(double conducted, double attended ) {
-        return (attended/conducted)*100;
+    private double calcPercentage(double conducted, double attended) {
+        return (attended / conducted) * 100;
     }
 
     // Returns no, of class need to attend or bunk
     private double noClass() {
 
         double classNo;
-        if ( mRequired >= mCurrent ) {
-            while ( mCurrent <= mRequired ) {
+        if (mRequired >= mCurrent) {
+            while (mCurrent <= mRequired) {
                 mConducted++;
                 mAttended++;
                 mCurrent = calcPercentage(mConducted, mAttended);
@@ -69,7 +69,7 @@ public class BunkCalculator extends BaseActivity {
             }
             classNo = (int) Math.ceil(Math.abs(mAttended - mInitAttend));
         } else {
-            while ( mCurrent >= (mRequired + 0.20) ) { // Added 0.20 as error from some answer.
+            while (mCurrent >= (mRequired + 0.20)) { // Added 0.20 as error from some answer.
                 mConducted++;
                 mCurrent = calcPercentage(mConducted, mAttended);
             }
@@ -141,7 +141,7 @@ public class BunkCalculator extends BaseActivity {
     private void initProcess() {
 
         //Check if app is running in test period.
-        String date_s = "16-07-2015";
+        String date_s = "20-07-2015";
         Date date = null;
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         try {
@@ -150,7 +150,7 @@ public class BunkCalculator extends BaseActivity {
             e.printStackTrace();
         }
 
-        if ( new Date().after(date) ) {
+        if (new Date().after(date)) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle("Testing period over!");
             dialog.setMessage("The testing period of application is now over. Contact Aditya for more details.");

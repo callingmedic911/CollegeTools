@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,11 +18,11 @@ import android.widget.ListView;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    public static Context appContext;
     protected Toolbar mActionBarToolbar;
     private DrawerLayout mDrawerLayout;
     private ListView mListView;
     private String[] mNavigationDrawerItems;
-    public static Context appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mNavigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         mListView = (ListView) findViewById(R.id.left_drawer);
 
-        mListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mNavigationDrawerItems));
+        mListView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, mNavigationDrawerItems));
         mListView.setOnItemClickListener(new DrawerItemClickListener());
     }
 
@@ -88,7 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void selectItem(int position) {
         Intent intent;
         mDrawerLayout.closeDrawer(mListView);
-        switch(position) {
+        switch (position) {
             default:
                 break;
             case 1:

@@ -17,13 +17,12 @@ import java.util.ArrayList;
  */
 public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
 
+    private final static String LOG_TAG = TimetableUpdater.class.getSimpleName();
     private Context mContext;
 
     public TimetableUpdater(Context context) {
         mContext = context;
     }
-
-    private final static String LOG_TAG = TimetableUpdater.class.getSimpleName();
 
     @Override
     protected Boolean doInBackground(Void... params) {
@@ -47,7 +46,7 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
         }
 
         //If everything goes good, then we'll check current version with cloud's
-        if (cloudVersion > localVersion){
+        if (cloudVersion > localVersion) {
             try {
                 CloudConnect.syncTimetable();
             } catch (IOException e) {
@@ -61,11 +60,11 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
     }
 
     @Override
-    public void onPostExecute (Boolean updated){
+    public void onPostExecute(Boolean updated) {
 
-        if(updated){
+        if (updated) {
             ArrayList<Lecture> newTimetable = TimetableList.getTimetable();
-            TimetableList.timetableAdapter =  new TimetableAdapter(
+            TimetableList.timetableAdapter = new TimetableAdapter(
                     mContext, R.layout.timetable_list,
                     newTimetable
             );

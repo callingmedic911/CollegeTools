@@ -32,6 +32,7 @@ public class DayGrid extends BaseActivity {
 
     private void openActivity(int position) {
         Intent intent = new Intent(this, TimetableList.class);
+        intent.putExtra(TimetableList.DAY_KEY, position + 1);
         startActivity(intent);
     }
 

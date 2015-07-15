@@ -26,7 +26,7 @@ public class TimetableAdapter extends ArrayAdapter<Lecture> {
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             //Specific layout for lunch
-            if (position == 4){
+            if (position == 4) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.timetable_lunch, parent, false);
             }
             //Global list item layout

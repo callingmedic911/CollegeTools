@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 /**
  * Created by callingmedic911 on 27/3/15.
+ * Copyright Aditya Pandey <aditya@autospace.co>. All right reserved.
  */
 public class DayAdapter extends ArrayAdapter<String> {
     public DayAdapter(Context context, int resource, String[] strings) {
@@ -39,7 +40,7 @@ public class DayAdapter extends ArrayAdapter<String> {
 
         //Populate data with custom background
         dayName.setText(string);
-        if( (day != 1) && (position == day-2) ) {
+        if ((day != 1) && (position == day - 2)) {
             layout.setBackgroundResource(R.color.primary_timetable);
             dayName.setTextColor(Color.WHITE);
             today.setText(R.string.today);
