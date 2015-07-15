@@ -1,7 +1,9 @@
 package com.adityaworks.collegetools;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.adityaworks.collegetools.updater.CloudConnect;
@@ -27,9 +29,11 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
 
-        int cloudVersion = 0;
-        int localVersion = 0;
+        int cloudVersion, localVersion;
         final String fileName = "timetable.version";
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
+        localVersion = sharedPref.getInt("localVersion", 0);
 
         try {
             Log.v(LOG_TAG, "BuiltURL " + CloudConnect.getURL(fileName).toString());
