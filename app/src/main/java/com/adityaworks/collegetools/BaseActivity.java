@@ -1,5 +1,6 @@
 package com.adityaworks.collegetools;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,10 +23,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mListView;
     private String[] mNavigationDrawerItems;
+    public static Context appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appContext = getApplicationContext();
+
         setContentView(getLayoutResourceId());
 
         setUpToolbar();

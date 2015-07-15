@@ -141,7 +141,7 @@ public class BunkCalculator extends BaseActivity {
     private void initProcess() {
 
         //Check if app is running in test period.
-        String date_s = "12-07-2015";
+        String date_s = "16-07-2015";
         Date date = null;
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         try {
