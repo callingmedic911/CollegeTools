@@ -9,7 +9,6 @@ import android.util.Log;
 import com.adityaworks.collegetools.updater.CloudConnect;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -50,7 +49,7 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
         //If everything goes good, then we'll check current version with cloud's
         if (cloudVersion > localVersion){
             try {
-                CloudConnect.syncNow();
+                CloudConnect.syncTimetable();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Failed to download update.");
             } finally {

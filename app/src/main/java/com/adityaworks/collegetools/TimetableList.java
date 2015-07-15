@@ -86,10 +86,6 @@ public class TimetableList extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private Date getReadableDateString(String dateStr) {
-        return null;
-    }
-
     public static ArrayList<Lecture> getTimetableDataFromJson(String timetableJsonStr)
             throws JSONException {
 

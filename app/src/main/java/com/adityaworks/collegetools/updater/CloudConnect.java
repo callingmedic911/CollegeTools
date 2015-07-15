@@ -92,7 +92,7 @@ public class CloudConnect {
         }
     }
 
-    public static void syncNow() throws IOException {
+    public static void syncTimetable() throws IOException {
         String cloudVersion = null;
         String newTimetableJSON = null;
         String timetable = "timetable.json";
