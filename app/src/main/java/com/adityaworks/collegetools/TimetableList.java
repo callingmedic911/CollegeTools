@@ -59,7 +59,7 @@ public class TimetableList extends BaseActivity {
         JSONObject timetableJson = new JSONObject(timetableJsonStr);
         JSONArray timetableArray = timetableJson.getJSONArray(day);
 
-        ArrayList<Lecture> resultList = new ArrayList<Lecture>();
+        ArrayList<Lecture> resultList = new ArrayList<>();
         for(int i = 0; i < timetableArray.length(); i++) {
             // Get the JSON object for each lecture
             JSONObject lectureDetails = timetableArray.getJSONObject(i);
