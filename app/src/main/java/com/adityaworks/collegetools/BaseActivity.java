@@ -22,7 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Toolbar mActionBarToolbar;
     private DrawerLayout mDrawerLayout;
     private ListView mListView;
-    private String[] mNavigationDrawerItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +54,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void setupNavDrawer() {
-        mNavigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
+        String[] mNavigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         mListView = (ListView) findViewById(R.id.left_drawer);
 
-        mListView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, mNavigationDrawerItems));
+        mListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mNavigationDrawerItems));
         mListView.setOnItemClickListener(new DrawerItemClickListener());
     }
 

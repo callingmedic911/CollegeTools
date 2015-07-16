@@ -1,10 +1,9 @@
 package com.adityaworks.collegetools;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.adityaworks.collegetools.updater.CloudConnect;
 
@@ -27,16 +26,16 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
 
-        int cloudVersion, localVersion;
+        float cloudVersion, localVersion;
         final String fileName = "timetable.version";
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
-        localVersion = sharedPref.getInt("localVersion", 0);
+        localVersion = TimetableList.localVersion;
+        Log.v(LOG_TAG, "Local version is " + localVersion);
 
         try {
             Log.v(LOG_TAG, "BuiltURL " + CloudConnect.getURL(fileName).toString());
             Log.v(LOG_TAG, "Cloud version is " + CloudConnect.urlToString(CloudConnect.getURL(fileName)));
-            cloudVersion = Integer.parseInt(CloudConnect.urlToString(CloudConnect.getURL(fileName)));
+            cloudVersion = Float.parseFloat(CloudConnect.urlToString(CloudConnect.getURL(fileName)));
         } catch (NumberFormatException e) {
             Log.e(LOG_TAG, "Error: Received null, orginal error - ", e);
             return false;
@@ -70,6 +69,11 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
             );
             TimetableList.listView.setAdapter(TimetableList.timetableAdapter);
             Log.v(LOG_TAG, "Notified DataSet Change.");
+            Toast.makeText(
+                    mContext,
+                    "Boom! Timetable updated.",
+                    Toast.LENGTH_LONG
+            ).show();
         }
 
     }

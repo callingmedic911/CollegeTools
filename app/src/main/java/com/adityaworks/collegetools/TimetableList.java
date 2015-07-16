@@ -18,19 +18,26 @@ public class TimetableList extends BaseActivity {
 
     public static final String DAY_KEY = "selected_date";
     private static final String LOG_TAG = TimetableList.class.getSimpleName();
-    public static String selectedDay;
     public static TimetableAdapter timetableAdapter;
     public static ListView listView;
+    public static float localVersion;
+    private static String selectedDay;
+    private static String defaultTimetable;
 
     public static ArrayList<Lecture> getTimetable() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
-
-        String defaultTimetable = "{\"1\":[{\"name\":\"No Timetable\",\"acro\":\"404\",\"faculty\":\"\",\"start-time\":\"\",\"end-time\":\"\"}]}";
-        String timetableStr = sharedPref.getString("timetableStr", defaultTimetable);
-
         ArrayList<Lecture> timetable;
+        String getForDay;
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
+        String timetableStr = sharedPref.getString("timetableStr", defaultTimetable);
+        localVersion = sharedPref.getFloat("localVersion", 0);
+
+        Log.v(LOG_TAG, "Local Version " + localVersion);
+        getForDay = (localVersion == 0.0) ? "1": selectedDay;
+        Log.v(LOG_TAG, "Selected day " + getForDay);
+
         try {
-            timetable = getTimetableDataFromJson(timetableStr, selectedDay);
+            timetable = getTimetableDataFromJson(timetableStr, getForDay);
             return timetable;
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
@@ -52,7 +59,7 @@ public class TimetableList extends BaseActivity {
         JSONObject timetableJson = new JSONObject(timetableJsonStr);
         JSONArray timetableArray = timetableJson.getJSONArray(day);
 
-        ArrayList<Lecture> resultList = new ArrayList<>();
+        ArrayList<Lecture> resultList = new ArrayList<Lecture>();
         for(int i = 0; i < timetableArray.length(); i++) {
             // Get the JSON object for each lecture
             JSONObject lectureDetails = timetableArray.getJSONObject(i);
@@ -111,7 +118,9 @@ public class TimetableList extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        defaultTimetable = getString(R.string.default_timetable);
+
+        if (savedInstanceState == null) {
             selectedDay = Integer.toString(getIntent().getIntExtra(DAY_KEY, 1));
         }
 
