@@ -40,7 +40,7 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
             Log.e(LOG_TAG, "Error: Received null, orginal error - ", e);
             return false;
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error", e);
+            Log.e(LOG_TAG, "Failed to download.", e);
             return false;
         }
 
