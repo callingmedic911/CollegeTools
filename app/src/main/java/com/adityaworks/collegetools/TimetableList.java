@@ -33,7 +33,7 @@ public class TimetableList extends BaseActivity {
         localVersion = sharedPref.getFloat("localVersion", 0);
 
         Log.v(LOG_TAG, "Local Version " + localVersion);
-        getForDay = (localVersion == 0.0) ? "1": selectedDay;
+        getForDay = (localVersion == 0) ? "1": selectedDay;
         Log.v(LOG_TAG, "Selected day " + getForDay);
 
         try {
