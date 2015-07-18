@@ -12,6 +12,9 @@ public class DayGrid extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Remove default title output
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         //TODO: Work in progress
         String[] gridViewItems = getResources().getStringArray(R.array.gridview_drawer_items);
         GridView gridView = (GridView) findViewById(R.id.gridview);
