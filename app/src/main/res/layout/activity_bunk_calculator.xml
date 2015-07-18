@@ -1,107 +1,114 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:id="@+id/container"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".BunkCalculator"
-             tools:ignore="MergeRootFrame">
+<LinearLayout android:id="@+id/container"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".BunkCalculator"
+              tools:ignore="MergeRootFrame">
 
   <android.support.v4.widget.DrawerLayout
-      android:id="@+id/drawer_layout"
-      xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+      android:id="@+id/content_frame"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
       <include
-          android:id="@+id/toolbar"
-          layout="@layout/toolbar_bunk_calculator"/>
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_bunk_calculator"/>
 
       <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <EditText
+          android:id="@+id/conducted"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
-          android:paddingLeft="@dimen/activity_horizontal_margin"
-          android:paddingRight="@dimen/activity_horizontal_margin"
-          android:layout_below="@id/toolbar">
+          android:hint="@string/conducted_hint"
+          android:inputType="number"
+          android:textSize="20dp"/>
 
-        <EditText android:id="@+id/conducted"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="20dp"
-                  android:hint="@string/conducted_hint"
-                  android:layout_marginTop="20dp"
-                  android:inputType="number" />
+        <EditText
+          android:id="@+id/attended"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/conducted"
+          android:layout_marginTop="20dp"
+          android:hint="@string/attended_hint"
+          android:inputType="number"
+          android:textSize="20dp"/>
 
-        <EditText android:id="@+id/attended"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="20dp"
-                  android:hint="@string/attended_hint"
-                  android:layout_below="@+id/conducted"
-                  android:layout_marginTop="20dp"
-                  android:inputType="number" />
+        <TextView
+          android:id="@+id/text_required"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/attended"
+          android:layout_marginRight="5dp"
+          android:layout_marginTop="20dp"
+          android:text="@string/required"
+          android:textColor="#000"
+          android:textSize="20dp"/>
 
-        <TextView android:id="@+id/text_required"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="#000"
-                  android:textSize="20dp"
-                  android:text="@string/required"
-                  android:layout_below="@id/attended"
-                  android:layout_marginTop="20dp"
-                  android:layout_marginRight="5dp"/>
+        <TextView
+          android:id="@+id/percent_out"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/attended"
+          android:layout_marginTop="20dp"
+          android:layout_toRightOf="@+id/text_required"
+          android:text="75%"
+          android:textColor="#000"
+          android:textSize="20dp"/>
 
-        <TextView android:id="@+id/percent_out"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="20dp"
-                  android:textColor="#000"
-                  android:layout_toRightOf="@+id/text_required"
-                  android:text="75%"
-                  android:layout_below="@id/attended"
-                  android:layout_marginTop="20dp" />
+        <SeekBar
+          android:id="@+id/required"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/text_required"
+          android:max="20"
+          android:progress="15"/>
 
-        <SeekBar android:id="@+id/required"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:max="20"
-                 android:progress="15"
-                 android:layout_below="@id/text_required" />
+        <Button
+          android:id="@+id/submit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/required"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="20dp"
+          android:text="@string/submit"/>
 
-        <Button android:id="@+id/submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/required"
-                android:text="@string/submit" />
-
-        <TextView android:id="@+id/answer"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="20dp"
-                  android:layout_below="@id/submit" />
+        <TextView
+          android:id="@+id/answer"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/submit"
+          android:layout_marginTop="20dp"/>
 
       </RelativeLayout>
 
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="304dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#fff"
-        android:elevation="4dp"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"/>
+      android:id="@+id/left_drawer"
+      android:layout_width="304dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="start"
+      android:background="#fff"
+      android:choiceMode="singleChoice"
+      android:divider="@android:color/transparent"
+      android:dividerHeight="0dp"
+      android:elevation="4dp"/>
   </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>
