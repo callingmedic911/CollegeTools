@@ -12,6 +12,6 @@ This is the app that solves these problem.
 ####App is work in progress:
 
 - [x] **Bunk Calculator** - Simple iterative algorithm.
-- [ ] **TimeTable** - Add JSON format of timetable for each section of each branch of each year and parse to get queried result and display to user.
+- [x] **TimeTable** - Add JSON format of timetable for each section of each branch of each year and parse to get queried result and display to user.
 - [ ] **Syllabus** - Add PDF Parser (Does that even exists?) to render syllabus of queried subject.
 - [ ] **Notification** - Add Push Notification service.
