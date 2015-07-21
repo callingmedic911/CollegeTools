@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.adityaworks.collegetools.updater.CloudConnect;
+import com.adityaworks.collegetools.util.CloudConnect;
 
 import java.io.IOException;
 import java.util.ArrayList;
