@@ -142,6 +142,7 @@ public class CircularRevealActivity extends Activity {
 
     private void clearDisplay() {
         getWindow().getDecorView().setVisibility(View.INVISIBLE);
+        Log.i(LOG_TAG, "Animation finished.");
         finish();
     }
 

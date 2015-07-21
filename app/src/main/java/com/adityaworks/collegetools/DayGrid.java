@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import com.adityaworks.collegetools.util.MaterialPalette;
 
 public class DayGrid extends BaseActivity {
 
+    private static final String LOG_TAG = DayGrid.class.getSimpleName();
     private Point touchPoint;
 
     @Override
@@ -60,6 +62,7 @@ public class DayGrid extends BaseActivity {
             animationIntent.putExtra(CircularRevealActivity.TOUCH_POINT, touchPoint);
             animationIntent.putExtra(CircularRevealActivity.EXTRA_THEME_COLORS, materialPalette);
             animationIntent.putExtra(CircularRevealActivity.ACTIVITY_INTENT, intent);
+            Log.i(LOG_TAG, "Animation started.");
             startActivity(animationIntent);
         } else {
             startActivity(intent);

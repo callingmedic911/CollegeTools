@@ -1,6 +1,7 @@
 package com.adityaworks.collegetools;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -115,9 +116,15 @@ public class TimetableList extends BaseActivity {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && hasFocus)
+            CircularRevealActivity.sendClearDisplayBroadcast(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CircularRevealActivity.sendClearDisplayBroadcast(this);
 
         defaultTimetable = getString(R.string.default_timetable);
 

@@ -30,7 +30,9 @@
         </activity>
         <activity
           android:name=".CircularRevealActivity"
+          android:excludeFromRecents="true"
           android:label="@string/title_activity_circular_reveal"
+          android:noHistory="true"
           android:theme="@style/Transparent">
         </activity>
     </application>
