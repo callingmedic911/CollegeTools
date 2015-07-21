@@ -1,12 +1,19 @@
 package com.adityaworks.collegetools;
 
 import android.content.Intent;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.adityaworks.collegetools.util.MaterialPalette;
+
 public class DayGrid extends BaseActivity {
+
+    private Point touchPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,13 @@ public class DayGrid extends BaseActivity {
                         this, R.layout.gridview_list_item,
                         gridViewItems
                 ));
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                touchPoint = new Point((int) motionEvent.getRawX(), (int) motionEvent.getRawY());
+                return false;
+            }
+        });
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 openActivity(position);
@@ -36,7 +50,20 @@ public class DayGrid extends BaseActivity {
     private void openActivity(int position) {
         Intent intent = new Intent(this, TimetableList.class);
         intent.putExtra(TimetableList.DAY_KEY, position + 1);
-        startActivity(intent);
+        startActivityWithAnimation(intent);
+    }
+
+    private void startActivityWithAnimation(Intent intent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            MaterialPalette materialPalette = new MaterialPalette(getResources().getColor(R.color.primary_timetable), getResources().getColor(R.color.primary_dark_timetable));
+            Intent animationIntent = new Intent(this, CircularRevealActivity.class);
+            animationIntent.putExtra(CircularRevealActivity.TOUCH_POINT, touchPoint);
+            animationIntent.putExtra(CircularRevealActivity.EXTRA_THEME_COLORS, materialPalette);
+            animationIntent.putExtra(CircularRevealActivity.ACTIVITY_INTENT, intent);
+            startActivity(animationIntent);
+        } else {
+            startActivity(intent);
+        }
     }
 
     @Override

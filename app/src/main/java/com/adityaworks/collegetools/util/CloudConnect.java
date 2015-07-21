@@ -1,4 +1,4 @@
-package com.adityaworks.collegetools.updater;
+package com.adityaworks.collegetools.util;
 
 import android.content.SharedPreferences;
 import android.net.Uri;

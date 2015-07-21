@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.adityaworks.collegetools" >
+<manifest
+  package="com.adityaworks.collegetools"
+  xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -26,6 +27,11 @@
         <activity
             android:name=".TimetableList"
             android:label="@string/title_activity_timetable_list" >
+        </activity>
+        <activity
+          android:name=".CircularRevealActivity"
+          android:label="@string/title_activity_circular_reveal"
+          android:theme="@style/Transparent">
         </activity>
     </application>
 

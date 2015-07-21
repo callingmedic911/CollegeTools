@@ -117,6 +117,7 @@ public class TimetableList extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CircularRevealActivity.sendClearDisplayBroadcast(this);
 
         defaultTimetable = getString(R.string.default_timetable);
 
