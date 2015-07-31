@@ -22,8 +22,8 @@ public class TimetableList extends BaseActivity {
     public static TimetableAdapter timetableAdapter;
     public static ListView listView;
     public static float localVersion;
+    public static String defaultTimetable;
     private static String selectedDay;
-    private static String defaultTimetable;
 
     public static ArrayList<Lecture> getTimetable() {
         ArrayList<Lecture> timetable;
@@ -34,7 +34,7 @@ public class TimetableList extends BaseActivity {
         localVersion = sharedPref.getFloat("localVersion", 0);
 
         Log.v(LOG_TAG, "Local Version " + localVersion);
-        getForDay = (localVersion == 0) ? "1": selectedDay;
+        getForDay = (localVersion == 0) ? "1" : selectedDay;
         Log.v(LOG_TAG, "Selected day " + getForDay);
 
         try {
@@ -61,7 +61,7 @@ public class TimetableList extends BaseActivity {
         JSONArray timetableArray = timetableJson.getJSONArray(day);
 
         ArrayList<Lecture> resultList = new ArrayList<>();
-        for(int i = 0; i < timetableArray.length(); i++) {
+        for (int i = 0; i < timetableArray.length(); i++) {
             // Get the JSON object for each lecture
             JSONObject lectureDetails = timetableArray.getJSONObject(i);
 
@@ -73,7 +73,7 @@ public class TimetableList extends BaseActivity {
             String endTime = lectureDetails.getString(END_TIME);
 
             // Add item for lunch
-            if (i==4)
+            if (i == 4)
                 resultList.add(new Lecture("Lunch", "", "", "12:30 pm", "01:40 pm"));
 
             resultList.add(new Lecture(name, acro, faculty, startTime, endTime));
