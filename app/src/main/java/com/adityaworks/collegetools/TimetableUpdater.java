@@ -46,14 +46,16 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
 
         //If everything goes good, then we'll check current version with cloud's
         if (cloudVersion > localVersion) {
+            boolean result;
             try {
                 CloudConnect.syncTimetable();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Failed to download update.");
             } finally {
                 Log.v(LOG_TAG, "Sync Successful");
+                result = true;
             }
-            return true;
+            return result;
         }
         return false;
     }
