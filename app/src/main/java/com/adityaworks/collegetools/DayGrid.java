@@ -31,7 +31,7 @@ public class DayGrid extends BaseActivity {
     private static final String LOG_TAG = DayGrid.class.getSimpleName();
     private static SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
     private static String timetableStr = sharedPref.getString("timetableStr", TimetableList.defaultTimetable);
-    Calendar calendar = Calendar.getInstance();
+    private static Calendar calendar = Calendar.getInstance();
     private Point touchPoint;
     private TextView subjectName;
     private TextView expDay;

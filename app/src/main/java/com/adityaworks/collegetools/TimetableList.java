@@ -21,8 +21,8 @@ public class TimetableList extends BaseActivity {
     private static final String LOG_TAG = TimetableList.class.getSimpleName();
     public static TimetableAdapter timetableAdapter;
     public static ListView listView;
-    public static float localVersion;
     public static String defaultTimetable;
+    public static float localVersion;
     private static String selectedDay;
 
     public static ArrayList<Lecture> getTimetable() {
