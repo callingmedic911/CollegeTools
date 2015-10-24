@@ -1,17 +1,12 @@
 package com.adityaworks.collegetools;
 
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.adityaworks.collegetools.util.TimetableHelper;
 
 import java.util.ArrayList;
 
@@ -21,66 +16,7 @@ public class TimetableList extends BaseActivity {
     private static final String LOG_TAG = TimetableList.class.getSimpleName();
     public static TimetableAdapter timetableAdapter;
     public static ListView listView;
-    public static String defaultTimetable;
-    public static float localVersion;
-    private static String selectedDay;
-
-    public static ArrayList<Lecture> getTimetable() {
-        ArrayList<Lecture> timetable;
-        String getForDay;
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
-        String timetableStr = sharedPref.getString("timetableStr", defaultTimetable);
-        localVersion = sharedPref.getFloat("localVersion", 0);
-
-        Log.v(LOG_TAG, "Local Version " + localVersion);
-        getForDay = (localVersion == 0) ? "1" : selectedDay;
-        Log.v(LOG_TAG, "Selected day " + getForDay);
-
-        try {
-            timetable = getTimetableDataFromJson(timetableStr, getForDay);
-            return timetable;
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static ArrayList<Lecture> getTimetableDataFromJson(String timetableJsonStr, String day)
-            throws JSONException {
-
-        // These are the names of the JSON objects that need to be extracted.
-        final String LECTURE_NAME = "name";
-        final String ACRONYM = "acro";
-        final String FACULTY_NAME = "faculty";
-        final String START_TIME = "start-time";
-        final String END_TIME = "end-time";
-
-        JSONObject timetableJson = new JSONObject(timetableJsonStr);
-        JSONArray timetableArray = timetableJson.getJSONArray(day);
-
-        ArrayList<Lecture> resultList = new ArrayList<>();
-        for (int i = 0; i < timetableArray.length(); i++) {
-            // Get the JSON object for each lecture
-            JSONObject lectureDetails = timetableArray.getJSONObject(i);
-
-            // Assigning data
-            String name = lectureDetails.getString(LECTURE_NAME);
-            String acro = lectureDetails.getString(ACRONYM);
-            String faculty = lectureDetails.getString(FACULTY_NAME);
-            String startTime = lectureDetails.getString(START_TIME);
-            String endTime = lectureDetails.getString(END_TIME);
-
-            // Add item for lunch
-            if (i == 4)
-                resultList.add(new Lecture("Lunch", "", "", "12:30 pm", "01:40 pm"));
-
-            resultList.add(new Lecture(name, acro, faculty, startTime, endTime));
-        }
-        return resultList;
-
-    }
+    public static String selectedDay = "1";
 
     private void updateTimetable() {
         TimetableUpdater updaterTask = new TimetableUpdater(this);
@@ -125,15 +61,12 @@ public class TimetableList extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        defaultTimetable = getString(R.string.default_timetable);
-
         if (savedInstanceState == null) {
             selectedDay = Integer.toString(getIntent().getIntExtra(DAY_KEY, 1));
         }
 
         listView = (ListView) findViewById(R.id.timetable_list);
-        ArrayList<Lecture> timetable = getTimetable();
+        ArrayList<Lecture> timetable = TimetableHelper.getTimetable(selectedDay);
         timetableAdapter = new TimetableAdapter(
                 this, R.layout.timetable_list,
                 timetable

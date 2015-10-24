@@ -93,23 +93,21 @@ public class CloudConnect {
     }
 
     public static void syncTimetable() throws IOException {
-        String cloudVersion = null;
-        String newTimetableJSON = null;
+        String cloudVersion;
+        String newTimetableJSON;
         String timetable = "timetable.json";
         String version = "timetable.version";
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        try {
-            cloudVersion = urlToString(getURL(version));
-            newTimetableJSON = urlToString(getURL(timetable));
+        cloudVersion = urlToString(getURL(version));
+        newTimetableJSON = urlToString(getURL(timetable));
 
-        } finally {
-            if ((cloudVersion != null) && (newTimetableJSON != null)) {
-                editor.putString("timetableStr", newTimetableJSON);
-                editor.putFloat("localVersion", Float.parseFloat(cloudVersion));
-            }
+        if ((cloudVersion != null) && (newTimetableJSON != null)) {
+            editor.putString("timetableStr", newTimetableJSON);
+            editor.putFloat("localVersion", Float.parseFloat(cloudVersion));
         }
+
         editor.apply();
 
     }

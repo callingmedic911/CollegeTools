@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.adityaworks.collegetools.util.CloudConnect;
+import com.adityaworks.collegetools.util.TimetableHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,10 +27,9 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
 
-        float cloudVersion, localVersion;
+        float cloudVersion, localVersion = TimetableHelper.getLocalVersion();
         final String fileName = "timetable.version";
 
-        localVersion = TimetableList.localVersion;
         Log.v(LOG_TAG, "Local version is " + localVersion);
 
         try {
@@ -37,7 +37,7 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
             Log.v(LOG_TAG, "Cloud version is " + CloudConnect.urlToString(CloudConnect.getURL(fileName)));
             cloudVersion = Float.parseFloat(CloudConnect.urlToString(CloudConnect.getURL(fileName)));
         } catch (NumberFormatException e) {
-            Log.e(LOG_TAG, "Error: Received null, orginal error - ", e);
+            Log.e(LOG_TAG, "Error: Received null, stack trace : ", e);
             return false;
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to download.", e);
@@ -49,13 +49,11 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
             boolean result;
             try {
                 CloudConnect.syncTimetable();
+                Log.v(LOG_TAG, "Sync Successful");
+                return true;
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Failed to download update.");
-            } finally {
-                Log.v(LOG_TAG, "Sync Successful");
-                result = true;
             }
-            return result;
         }
         return false;
     }
@@ -64,7 +62,7 @@ public class TimetableUpdater extends AsyncTask<Void, Void, Boolean> {
     public void onPostExecute(Boolean updated) {
 
         if (updated) {
-            ArrayList<Lecture> newTimetable = TimetableList.getTimetable();
+            ArrayList<Lecture> newTimetable = TimetableHelper.getTimetable(TimetableList.selectedDay);
             TimetableList.timetableAdapter = new TimetableAdapter(
                     mContext, R.layout.timetable_list,
                     newTimetable
