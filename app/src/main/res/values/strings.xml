@@ -23,9 +23,9 @@
 
     <string-array name="navigation_drawer_items">
         <item>Home</item>
-        <item>Bunk Calculator</item>
         <item>Timetable</item>
         <item>Syllabus</item>
+        <item>Bunk Calculator</item>
     </string-array>
     <string-array name="gridview_drawer_items">
         <item>Mon</item>

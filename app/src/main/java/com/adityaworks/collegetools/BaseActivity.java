@@ -90,11 +90,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             default:
                 break;
             case 1:
-                intent = new Intent(this, BunkCalculator.class);
+                intent = new Intent(this, DayGrid.class);
                 startActivityWithDelay(intent);
                 break;
-            case 2:
-                intent = new Intent(this, DayGrid.class);
+            case 3:
+                intent = new Intent(this, BunkCalculator.class);
                 startActivityWithDelay(intent);
                 break;
         }
