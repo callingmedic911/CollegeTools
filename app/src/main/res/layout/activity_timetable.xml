@@ -22,6 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
         android:layout_marginTop="?android:actionBarSize"
         card_view:cardElevation="4dp">
         <RelativeLayout
