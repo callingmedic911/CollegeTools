@@ -39,10 +39,10 @@ public class DayGrid extends BaseActivity {
         GridView gridView = (GridView) findViewById(R.id.gridview);
 
         //Setup next lecture tile
-        if (TimetableHelper.getTimetableStr() != null) {
-            subjectName = (TextView) findViewById(R.id.subject);
-            expDay = (TextView) findViewById(R.id.day);
-            timeDur = (TextView) findViewById(R.id.time);
+        subjectName = (TextView) findViewById(R.id.subject);
+        expDay = (TextView) findViewById(R.id.day);
+        timeDur = (TextView) findViewById(R.id.time);
+        if (TimetableHelper.getLocalVersion() != 0) {
             setupNextLecture();
         } else {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) gridView.getLayoutParams();
