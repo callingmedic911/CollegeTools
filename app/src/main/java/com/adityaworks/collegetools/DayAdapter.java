@@ -29,7 +29,7 @@ public class DayAdapter extends ArrayAdapter<String> {
         //Get data to populate
         String string = getItem(position);
 
-        // Check if an existing view is being reused, otherwise inflate the view
+        // Inflate the view
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.gridview_list_item, parent, false);
 
         RelativeLayout layout = (RelativeLayout) convertView.findViewById(R.id.gridview_layout);
