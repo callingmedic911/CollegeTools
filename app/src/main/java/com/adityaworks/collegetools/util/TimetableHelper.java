@@ -26,35 +26,19 @@ public class TimetableHelper {
 
     private static final String LOG_TAG = TimetableHelper.class.getSimpleName();
     public static Calendar calendar = Calendar.getInstance();
-    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-    public static Date currentTime;
-    public static String selectedDay;
     private static SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext);
-
-    public TimetableHelper() {
-
-        //Get current time
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        try {
-            TimetableHelper.currentTime = TimetableHelper.simpleDateFormat.parse(hour + ":" + minute);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static ArrayList<Lecture> getTimetable(String selectedDay) {
         ArrayList<Lecture> timetable;
         String getForDay;
-        float localVersion = TimetableHelper.getLocalVersion();
+        float localVersion = getLocalVersion();
 
         Log.v(LOG_TAG, "Local Version " + localVersion);
         getForDay = (localVersion == 0) ? "1" : selectedDay;
         Log.v(LOG_TAG, "Selected day " + getForDay);
 
         try {
-            timetable = getTimetableDataFromJson(TimetableHelper.getTimetableStr(), getForDay);
+            timetable = getTimetableDataFromJson(getTimetableStr(), getForDay);
             return timetable;
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
@@ -159,6 +143,19 @@ public class TimetableHelper {
     }
 
     private static boolean checkTimeIsBefore(String time) throws ParseException {
+
+        //Get current time
+        Date currentTime = null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        try {
+            currentTime = simpleDateFormat.parse(hour + ":" + minute);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Log.i(LOG_TAG, currentTime.toString());
         return currentTime.before(simpleDateFormat.parse(time));
     }
