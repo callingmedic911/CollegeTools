@@ -30,9 +30,7 @@ public class DayAdapter extends ArrayAdapter<String> {
         String string = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.gridview_list_item, parent, false);
-        }
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.gridview_list_item, parent, false);
 
         RelativeLayout layout = (RelativeLayout) convertView.findViewById(R.id.gridview_layout);
         TextView dayName = (TextView) convertView.findViewById(R.id.gridview_text);
